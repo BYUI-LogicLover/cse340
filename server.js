@@ -34,6 +34,11 @@ app.get('/', async (req, res) => {
   res.render('home', { title });
 });
 
+app.get('/categories', async (req, res) => {
+  const title = 'Categories';
+  res.render('categories', { title });
+});
+
 app.get('/organizations', async (req, res) => {
   const title = 'Our Partner Organizations';
   res.render('organizations', { title });
