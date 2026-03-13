@@ -2,12 +2,20 @@
 <main>
   <h1><%= title %></h1>
 
-  <p>Upcoming Service Projects:</p>
-  <ul>
-
-    <% projects.forEach(project => { %>
-      <li><strong><%= project.start_date.getDate() %>/<%= project.start_date.getMonth() + 1 %>/<%= project.start_date.getFullYear() %>: <%= project.title %></strong> (<%= project.name %>)</li>
+  <table>
+    <tr>
+      <th>Start Date</th>
+      <th>Organization</th>
+      <th>Description</th>
+      <th>Categories</th>
+      <% projects.forEach(project => { %>
+    <tr>
+      <td><strong><%= project.start_date.getMonth() + 1 %>/<%= project.start_date.getDate() %>/<%= project.start_date.getFullYear() %></strong></td>
+      <td><%= project.organization_name %></td>
+      <td><%= project.description %></td>
+      <td><%= project.category_names %></td>
+    </tr>
     <% }); %>
-  </ul>
+  </table>
 </main>
 <%- include('partials/footer') %>
