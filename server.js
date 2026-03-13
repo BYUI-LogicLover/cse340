@@ -4,7 +4,7 @@ import path from 'path';
 import { testConnection } from './src/models/db.js';
 import { getAllOrganizations } from './src/models/organizations.js';
 
-// Define the the application environment
+// Define the application environment
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
 
 // Define the port number the server will listen on
@@ -39,11 +39,6 @@ app.get('/', async (req, res) => {
 app.get('/categories', async (req, res) => {
   const title = 'Categories';
   res.render('categories', { title });
-});
-
-app.get('/organizations', async (req, res) => {
-  const title = 'Our Partner Organizations';
-  res.render('organizations', { title });
 });
 
 app.get('/projects', async (req, res) => {
