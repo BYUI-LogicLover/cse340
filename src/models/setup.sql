@@ -68,7 +68,7 @@ CREATE SEQUENCE project_id_seq
 CREATE TABLE public.project
 (
     project_id      integer                NOT NULL DEFAULT nextval('project_id_seq'::regclass),
-    organization_id integer                NOT NULL,
+    organization_id integer                NOT NULL REFERENCES public.organization (organization_id),
     title           character varying(255) NOT NULL,
     description     character varying(255),
     location        character varying(255),
