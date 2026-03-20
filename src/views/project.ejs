@@ -6,5 +6,14 @@
   <p><strong>Date:</strong> <%= project.start_date.toLocaleDateString() %></p>
   <p><strong>Location:</strong> <%= project.location %></p>
   <p><strong>Organization:</strong> <a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a></p>
+
+  <% if (categories.length > 0) { %>
+    <div class="category-tags">
+      <strong>Categories:</strong>
+      <% categories.forEach(category => { %>
+        <a href="/category/<%= category.category_id %>" class="category-tag"><%= category.name %></a>
+      <% }); %>
+    </div>
+  <% } %>
 </main>
 <%- include('partials/footer') %>

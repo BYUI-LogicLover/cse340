@@ -1,4 +1,5 @@
 import { getUpcomingProjects, getProjectDetails } from '../models/projects.js';
+import { getCategoriesByProjectId } from '../models/categories.js';
 
 const NUMBER_OF_UPCOMING_PROJECTS = 5;
 
@@ -10,11 +11,19 @@ const showProjectsPage = async (req, res) => {
   res.render('projects', { title, projects });
 };
 
-const showProjectDetailsPage = async (req, res) => {
+const showProjectDetailsPage = async (req, res, next) => {
   const projectId = req.params.id;
   const project = await getProjectDetails(projectId);
 
-  res.render('project', { title: project.title, project });
+  if (!project) {
+    const error = new Error('Project not found');
+    error.status = 404;
+    return next(error);
+  }
+
+  const categories = await getCategoriesByProjectId(projectId);
+
+  res.render('project', { title: project.title, project, categories });
 };
 
 // Export any controller functions
