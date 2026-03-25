@@ -17,12 +17,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon",
-    "start": "node server.js",
+    "start": "node --env-file=.env server.js",
     "build": "npm install"
   },
   "dependencies": {
     "ejs": "^4.0.1",
     "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "express-validator": "^7.3.1",
     "pg": "^8.20.0"
   },
   "devDependencies": {
