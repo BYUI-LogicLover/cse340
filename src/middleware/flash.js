@@ -86,7 +86,6 @@ const flashLocals = (req, res, next) => {
 
 /**
  * Combined flash middleware that runs both functions in the correct order
- * Import and use this as a single middleware function in your application
  */
 const flash = (req, res, next) => {
     flashMiddleware(req, res, () => {
