@@ -15,7 +15,9 @@
       </li>
     <% }); %>
   </ul>
-  <a href="/new-organization" class="btn-new">New</a>
+  <% if (isAdmin) { %>
+    <a href="/new-organization" class="btn-new">New</a>
+  <% } %>
 </main>
 
 <%- include('partials/footer') %>

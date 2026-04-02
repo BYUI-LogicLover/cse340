@@ -16,7 +16,9 @@
     </div>
   <% } %>
 
-  <a href="/edit-project/<%= project.project_id %>" class="btn-new">Edit Project</a>
-  <a href="/project/<%= project.project_id %>/assign-categories" class="btn-new">Edit Categories</a>
+  <% if (isAdmin) { %>
+    <a href="/edit-project/<%= project.project_id %>" class="btn-new">Edit Project</a>
+    <a href="/project/<%= project.project_id %>/assign-categories" class="btn-new">Edit Categories</a>
+  <% } %>
 </main>
 <%- include('partials/footer') %>

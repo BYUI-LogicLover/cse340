@@ -7,6 +7,8 @@
       <li><strong><a href="/category/<%= category.category_id %>"><%= category.name %></a>: </strong> <%= category.description %></li>
     <% }); %>
   </ul>
-  <a href="/new-category" class="btn-new">New</a>
+  <% if (isAdmin) { %>
+    <a href="/new-category" class="btn-new">New</a>
+  <% } %>
 </main>
 <%- include('partials/footer') %>

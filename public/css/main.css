@@ -65,6 +65,32 @@ form {
     padding: 24px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    label {
+        font-weight: bold;
+        margin-bottom: 6px;
+    }
+
+    input,
+    textarea {
+        padding: 8px 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-family: inherit;
+        font-size: 1em;
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 16px;
+
+        &:focus {
+            outline: none;
+            border-color: #0066cc;
+            box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
+        }
+    }
 }
 
 .form-group {
@@ -193,6 +219,11 @@ form button[type="submit"] {
     &:hover {
         background-color: #004c99;
     }
+}
+
+.main-logo {
+    display: block;
+    margin-bottom: 24px;
 }
 
 .btn-new {

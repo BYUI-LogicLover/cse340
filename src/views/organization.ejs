@@ -6,7 +6,9 @@
   <img src="/images/<%= organizationDetails.logo_filename %>" alt="<%= organizationDetails.name %> logo">
   <p><%= organizationDetails.description %></p>
 
-  <p><a href="/edit-organization/<%= organizationDetails.organization_id %>">Edit</a></p>
+  <% if (isAdmin) { %>
+    <p><a href="/edit-organization/<%= organizationDetails.organization_id %>">Edit</a></p>
+  <% } %>
 
   <h3>Service Projects</h3>
   <ul>

@@ -10,6 +10,8 @@
     </li>
     <% }); %>
   </ul>
-  <a href="/new-project" class="btn-new">New</a>
+  <% if (isAdmin) { %>
+    <a href="/new-project" class="btn-new">New</a>
+  <% } %>
 </main>
 <%- include('partials/footer') %>
