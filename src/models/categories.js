@@ -76,4 +76,16 @@ const updateCategoryAssignments = async (projectId, categoryIds) => {
     }
 };
 
-export { getAllCategories, getCategoryById, getCategoriesByProjectId, getProjectsByCategoryId, updateCategoryAssignments }
+const createCategory = async (name, description) => {
+    const query = `
+        INSERT INTO public.category (name, description)
+        VALUES ($1, $2)
+        RETURNING category_id;
+    `;
+
+    const result = await db.query(query, [name, description]);
+
+    return result.rows[0];
+};
+
+export { getAllCategories, getCategoryById, getCategoriesByProjectId, getProjectsByCategoryId, assignCategoryToProject, updateCategoryAssignments, createCategory }

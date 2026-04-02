@@ -7,9 +7,6 @@
   <p><strong>Location:</strong> <%= project.location %></p>
   <p><strong>Organization:</strong> <a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a></p>
 
-  <p><a href="/edit-project/<%= project.project_id %>">Edit Project</a></p>
-  <p><a href="/project/<%= project.project_id %>/assign-categories">Edit Categories</a></p>
-
   <% if (categories.length > 0) { %>
     <div class="category-tags">
       <strong>Categories:</strong>
@@ -18,5 +15,8 @@
       <% }); %>
     </div>
   <% } %>
+
+  <a href="/edit-project/<%= project.project_id %>" class="btn-new">Edit Project</a>
+  <a href="/project/<%= project.project_id %>/assign-categories" class="btn-new">Edit Categories</a>
 </main>
 <%- include('partials/footer') %>

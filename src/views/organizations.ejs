@@ -6,10 +6,16 @@
   <ul>
 
     <% organizations.forEach(organization => { %>
-      <li><img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo"><strong><a href="/organization/<%= organization.organization_id %>"><%= organization.name %></a></strong>: <%= organization.contact_email %></li>
+      <li class="org-item">
+        <img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo">
+        <div class="org-info">
+          <strong><a href="/organization/<%= organization.organization_id %>"><%= organization.name %></a></strong>
+          <span><a href="mailto:<%= organization.contact_email %>"><%= organization.contact_email %></a></span>
+        </div>
+      </li>
     <% }); %>
   </ul>
-  <p><a href="/new-organization">Add a new organization</a></p>
+  <a href="/new-organization" class="btn-new">New</a>
 </main>
 
 <%- include('partials/footer') %>
