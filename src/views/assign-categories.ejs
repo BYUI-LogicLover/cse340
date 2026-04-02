@@ -3,21 +3,32 @@
   <h1><%= title %> - <%= project.title %></h1>
 
   <form action="/project/<%= project.project_id %>/assign-categories" method="POST">
-    <fieldset>
-      <legend>Select Categories</legend>
-      <% categories.forEach(category => { %>
-        <div class="checkbox-group">
-          <input
-              type="checkbox"
-              id="category-<%= category.category_id %>"
-              name="categoryIds"
-              value="<%= category.category_id %>"
-              <%= assignedCategories.some(ac => ac.category_id === category.category_id) ? 'checked' : '' %>
-          />
-          <label for="category-<%= category.category_id %>"><%= category.name %></label>
-        </div>
-      <% }); %>
-    </fieldset>
+    <table>
+      <thead>
+        <tr>
+          <th>Assign</th>
+          <th>Category</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% categories.forEach(category => { %>
+          <tr>
+            <td>
+              <input
+                  type="checkbox"
+                  id="category-<%= category.category_id %>"
+                  name="categoryIds"
+                  value="<%= category.category_id %>"
+                  <%= assignedCategories.some(ac => ac.category_id === category.category_id) ? 'checked' : '' %>
+              />
+            </td>
+            <td>
+              <label for="category-<%= category.category_id %>"><%= category.name %></label>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
 
     <button type="submit">Update Categories</button>
   </form>
