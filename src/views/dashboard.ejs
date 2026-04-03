@@ -4,4 +4,8 @@
 <p>Name: <%= name %></p>
 <p>Email: <%= email %></p>
 
+<% if (isAdmin) { %>
+  <a href="/users" class="btn-new">Manage Users</a>
+<% } %>
+
 <%- include('partials/footer') %>

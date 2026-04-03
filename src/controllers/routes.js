@@ -5,7 +5,7 @@ import { showOrganizationsPage, showOrganizationDetailsPage, showNewOrganization
 import { showProjectsPage, showProjectDetailsPage, showNewProjectForm, processNewProjectForm, projectValidation, showEditProjectForm, processEditProjectForm } from './projects.js';
 import { showCategoriesPage, showCategoryDetailsPage, showNewCategoryForm, processNewCategoryForm, showAssignCategoriesForm, processAssignCategoriesForm } from './categories.js';
 import { testErrorPage } from './errors.js';
-import { showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm, processLogout, requireLogin, requireRole, showDashboard } from './users.js';
+import { showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm, processLogout, requireLogin, requireRole, showDashboard, showUsers } from './users.js';
 
 const router = express.Router();
 
@@ -70,6 +70,9 @@ router.get('/logout', processLogout);
 
 // Protected dashboard route
 router.get('/dashboard', requireLogin, showDashboard);
+
+// Admin-only users page
+router.get('/users', requireRole('admin'), showUsers);
 
 // error-handling routes
 router.get('/test-error', testErrorPage);
