@@ -1,8 +1,9 @@
 {
-  "ext": "js css ejs env",
+  "ext": "js ejs env",
   "exec": "node --env-file=.env.development server.js",
   "ignore": [
     ".git",
-    "node_modules"
+    "node_modules",
+    "public"
   ]
 }

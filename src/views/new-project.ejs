@@ -1,53 +1,32 @@
 <%- include('partials/header') %>
-<main>
-  <h1><%= title %></h1>
+<div class="max-w-2xl mx-auto space-y-8">
+  <h1 class="text-3xl font-extrabold text-gray-900 mb-6"><%= title %></h1>
 
-  <form action="/new-project" method="POST">
-    <div class="form-group">
-      <label for="title">Project Title</label>
-      <input
-          type="text"
-          id="title"
-          name="title"
-          required
-          maxlength="200"
-      />
+  <form action="/new-project" method="POST" class="card p-8 space-y-6">
+    <div>
+      <label for="title" class="form-label">Project Title</label>
+      <input type="text" id="title" name="title" required maxlength="200" class="input-field" />
     </div>
 
-    <div class="form-group">
-      <label for="description">Description</label>
-      <textarea
-          id="description"
-          name="description"
-          required
-          maxlength="1000"
-      ></textarea>
+    <div>
+      <label for="description" class="form-label">Description</label>
+      <textarea id="description" name="description" required maxlength="1000" class="input-field min-h-[120px]"></textarea>
     </div>
 
-    <div class="form-group">
-      <label for="location">Location</label>
-      <input
-          type="text"
-          id="location"
-          name="location"
-          required
-          maxlength="200"
-      />
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label for="location" class="form-label">Location</label>
+        <input type="text" id="location" name="location" required maxlength="200" class="input-field" />
+      </div>
+      <div>
+        <label for="date" class="form-label">Date</label>
+        <input type="date" id="date" name="date" required class="input-field" />
+      </div>
     </div>
 
-    <div class="form-group">
-      <label for="date">Date</label>
-      <input
-          type="date"
-          id="date"
-          name="date"
-          required
-      />
-    </div>
-
-    <div class="form-group">
-      <label for="organizationId">Organization</label>
-      <select id="organizationId" name="organizationId" required>
+    <div>
+      <label for="organizationId" class="form-label">Organization</label>
+      <select id="organizationId" name="organizationId" required class="input-field bg-white">
         <option value="">-- Select an Organization --</option>
         <% organizations.forEach(organization => { %>
           <option value="<%= organization.organization_id %>"><%= organization.name %></option>
@@ -55,9 +34,9 @@
       </select>
     </div>
 
-    <div class="form-group">
-      <label for="categoryId">Category</label>
-      <select id="categoryId" name="categoryId">
+    <div>
+      <label for="categoryId" class="form-label">Category</label>
+      <select id="categoryId" name="categoryId" class="input-field bg-white">
         <option value="">-- Select a Category --</option>
         <% categories.forEach(category => { %>
           <option value="<%= category.category_id %>"><%= category.name %></option>
@@ -65,8 +44,10 @@
       </select>
     </div>
 
-    <button type="submit">Create Project</button>
+    <div class="pt-4 flex justify-end gap-3">
+      <a href="/projects" class="btn-primary bg-gray-500 hover:bg-gray-600">Cancel</a>
+      <button type="submit" class="btn-primary">Create Project</button>
+    </div>
   </form>
-
-</main>
+</div>
 <%- include('partials/footer') %>

@@ -1,23 +1,25 @@
 <%- include('partials/header') %>
-<main>
-  <h1><%= title %></h1>
+<div class="max-w-5xl mx-auto space-y-8">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-extrabold text-gray-900"><%= title %></h1>
+    <% if (isAdmin) { %>
+      <a href="/new-organization" class="btn-primary">New Organization</a>
+    <% } %>
+  </div>
 
-  <p>Here are a few of our partner organizations:</p>
-  <ul>
-
+  <p class="text-lg text-gray-600 mb-8">Here are a few of our partner organizations:</p>
+  <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     <% organizations.forEach(organization => { %>
-      <li class="org-item">
-        <img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo">
-        <div class="org-info">
-          <strong><a href="/organization/<%= organization.organization_id %>"><%= organization.name %></a></strong>
-          <span><a href="mailto:<%= organization.contact_email %>"><%= organization.contact_email %></a></span>
+      <li class="card hover:-translate-y-1 transition-transform duration-200">
+        <div class="p-6 flex flex-col items-center text-center">
+          <img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo" class="w-24 h-24 object-contain mb-4 bg-gray-50 rounded-full p-2">
+          <h2 class="text-xl font-bold text-gray-900 mb-2">
+            <a href="/organization/<%= organization.organization_id %>" class="hover:text-primary-600"><%= organization.name %></a>
+          </h2>
+          <a href="mailto:<%= organization.contact_email %>" class="text-primary-600 hover:underline text-sm"><%= organization.contact_email %></a>
         </div>
       </li>
     <% }); %>
   </ul>
-  <% if (isAdmin) { %>
-    <a href="/new-organization" class="btn-new">New</a>
-  <% } %>
-</main>
-
+</div>
 <%- include('partials/footer') %>

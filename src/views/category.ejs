@@ -1,18 +1,25 @@
 <%- include('partials/header') %>
-<main>
-  <h1><%= category.name %></h1>
+<div class="max-w-4xl mx-auto space-y-8">
+  <div class="card p-8 border-l-4 border-l-primary-500">
+    <h1 class="text-3xl font-extrabold text-gray-900 mb-4"><%= category.name %></h1>
+    <p class="text-lg text-gray-700"><%= category.description %></p>
+  </div>
 
-  <p><%= category.description %></p>
-
-  <h2>Service Projects</h2>
-  <% if (projects.length > 0) { %>
-    <ul>
-      <% projects.forEach(project => { %>
-        <li><a href="/project/<%= project.project_id %>"><%= project.title %></a></li>
-      <% }); %>
-    </ul>
-  <% } else { %>
-    <p>No service projects found for this category.</p>
-  <% } %>
-</main>
+  <div class="card p-8 mt-8">
+    <h2 class="text-xl font-bold text-gray-900 mb-4 border-b border-gray-100 pb-4">Service Projects</h2>
+    <% if (projects.length > 0) { %>
+      <ul class="space-y-3">
+        <% projects.forEach(project => { %>
+          <li>
+            <a href="/project/<%= project.project_id %>" class="block p-4 rounded-lg bg-gray-50 hover:bg-primary-50 text-gray-800 hover:text-primary-700 transition-colors font-medium border border-transparent hover:border-primary-100">
+              <%= project.title %> &rarr;
+            </a>
+          </li>
+        <% }); %>
+      </ul>
+    <% } else { %>
+      <p class="text-gray-500 italic bg-gray-50 p-4 rounded-lg">No service projects found for this category.</p>
+    <% } %>
+  </div>
+</div>
 <%- include('partials/footer') %>

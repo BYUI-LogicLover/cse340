@@ -1,11 +1,20 @@
 <%- include('partials/header') %>
-
-<h1>Dashboard</h1>
-<p>Name: <%= name %></p>
-<p>Email: <%= email %></p>
-
-<% if (isAdmin) { %>
-  <a href="/users" class="btn-new">Manage Users</a>
-<% } %>
-
+<div class="max-w-3xl mx-auto space-y-8">
+  <h1 class="text-3xl font-extrabold text-gray-900 mb-6">Dashboard</h1>
+  
+  <div class="card p-8 text-center sm:text-left sm:flex sm:items-center sm:space-x-8">
+    <div class="mx-auto sm:mx-0 w-24 h-24 bg-primary-100 text-primary-600 rounded-full flex items-center justify-center text-4xl font-bold mb-4 sm:mb-0">
+      <%= name.charAt(0).toUpperCase() %>
+    </div>
+    <div class="flex-1">
+      <h2 class="text-2xl font-bold text-gray-900"><%= name %></h2>
+      <p class="text-gray-500"><%= email %></p>
+    </div>
+    <% if (isAdmin) { %>
+      <div class="mt-6 sm:mt-0">
+        <a href="/users" class="btn-primary">Manage Users</a>
+      </div>
+    <% } %>
+  </div>
+</div>
 <%- include('partials/footer') %>

@@ -1,18 +1,30 @@
 <%- include('partials/header') %>
 
-<h1>Register</h1>
+<div class="card p-6 max-w-lg mx-auto mt-10">
+  <h1 class="text-3xl font-extrabold text-gray-900 mb-6 text-center">Register</h1>
 
-<form method="POST" action="/register">
-  <label for="name">Name:</label>
-  <input type="text" id="name" name="name" required>
+  <form method="POST" action="/register" class="space-y-4">
+    <div>
+      <label for="name" class="form-label">Name</label>
+      <input type="text" id="name" name="name" class="input-field" required>
+    </div>
 
-  <label for="email">Email:</label>
-  <input type="email" id="email" name="email" required>
+    <div>
+      <label for="email" class="form-label">Email</label>
+      <input type="email" id="email" name="email" class="input-field" required>
+    </div>
 
-  <label for="password">Password:</label>
-  <input type="password" id="password" name="password" required>
+    <div>
+      <label for="password" class="form-label">Password</label>
+      <input type="password" id="password" name="password" class="input-field" required>
+    </div>
 
-  <button type="submit">Register</button>
-</form>
+    <button type="submit" class="btn-primary w-full mt-4">Register</button>
+  </form>
+
+  <p class="mt-4 text-center text-sm text-gray-600">
+    Already have an account? <a href="/login" class="text-primary-600 hover:text-primary-700 font-semibold">Login here</a>
+  </p>
+</div>
 
 <%- include('partials/footer') %>

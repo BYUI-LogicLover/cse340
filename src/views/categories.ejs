@@ -1,14 +1,21 @@
 <%- include('partials/header') %>
-<main>
-  <h1><%= title %></h1>
+<div class="max-w-5xl mx-auto space-y-8">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-extrabold text-gray-900"><%= title %></h1>
+    <% if (isAdmin) { %>
+      <a href="/new-category" class="btn-primary">New Category</a>
+    <% } %>
+  </div>
 
-  <ul>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <% categories.forEach(category => { %>
-      <li><strong><a href="/category/<%= category.category_id %>"><%= category.name %></a>: </strong> <%= category.description %></li>
+      <div class="card p-6 hover:-translate-y-1 transition-transform duration-200 border-l-4 border-l-primary-500">
+        <h2 class="text-xl font-bold text-gray-900 mb-2">
+          <a href="/category/<%= category.category_id %>" class="hover:text-primary-600"><%= category.name %></a>
+        </h2>
+        <p class="text-gray-600 text-sm"><%= category.description %></p>
+      </div>
     <% }); %>
-  </ul>
-  <% if (isAdmin) { %>
-    <a href="/new-category" class="btn-new">New</a>
-  <% } %>
-</main>
+  </div>
+</div>
 <%- include('partials/footer') %>

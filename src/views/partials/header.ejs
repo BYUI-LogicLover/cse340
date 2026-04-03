@@ -6,29 +6,51 @@
   <title><%= title %></title>
   <link rel="stylesheet" href="/css/main.css">
 </head>
-<body>
-<nav>
-  <ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="/categories">Categories</a></li>
-    <li><a href="/organizations">Organizations</a></li>
-    <li><a href="/projects">Projects</a></li>
-    <% if (isLoggedIn) { %>
-      <li><a href="/logout">Logout</a></li>
-    <% } else { %>
-      <li><a href="/register">Register</a></li>
-      <li><a href="/login">Login</a></li>
-    <% } %>
-  </ul>
-</nav>
-
-    <% const messages = flash(); %>
-    <% Object.keys(messages).forEach(type => { %>
-        <% if (messages[type].length > 0) { %>
-            <div class="alert <%= type %>">
-                <% messages[type].forEach(msg => { %>
-                    <p><%= msg %></p>
-                <% }); %>
-            </div>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col font-sans">
+<header class="bg-white shadow-sm sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16 items-center">
+      <div class="flex-shrink-0 flex items-center">
+        <a href="/" class="text-xl font-bold text-primary-600 flex items-center gap-2">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+          Service Network
+        </a>
+      </div>
+      <nav class="hidden sm:ml-6 sm:flex sm:space-x-8">
+        <a href="/" class="text-gray-600 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+        <a href="/categories" class="text-gray-600 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Categories</a>
+        <a href="/organizations" class="text-gray-600 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Organizations</a>
+        <a href="/projects" class="text-gray-600 hover:text-primary-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Projects</a>
+      </nav>
+      <div class="flex items-center space-x-4">
+        <% if (locals.isLoggedIn) { %>
+          <a href="/dashboard" class="text-sm font-medium text-gray-700 hover:text-primary-600">Dashboard</a>
+          <a href="/logout" class="btn-primary py-2 px-4 text-sm">Logout</a>
+        <% } else { %>
+          <a href="/login" class="text-sm font-medium text-gray-700 hover:text-primary-600">Login</a>
+          <a href="/register" class="btn-primary py-2 px-4 text-sm">Register</a>
         <% } %>
-    <% }); %>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+  <% const messages = flash(); %>
+  <% Object.keys(messages).forEach(type => { %>
+      <% if (messages[type].length > 0) { %>
+          <% 
+            let alertClass = 'bg-blue-100 text-blue-800 border-blue-200';
+            if (type === 'success') alertClass = 'bg-green-100 text-green-800 border-green-200';
+            if (type === 'error') alertClass = 'bg-red-100 text-red-800 border-red-200';
+            if (type === 'warning') alertClass = 'bg-yellow-100 text-yellow-800 border-yellow-200';
+          %>
+          <div class="mb-6 rounded-lg p-4 border <%= alertClass %> flex items-start shadow-sm" role="alert">
+              <div class="flex-1">
+              <% messages[type].forEach(msg => { %>
+                  <p class="font-medium text-sm"><%= msg %></p>
+              <% }); %>
+              </div>
+          </div>
+      <% } %>
+  <% }); %>
