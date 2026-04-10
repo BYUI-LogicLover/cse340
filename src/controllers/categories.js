@@ -1,4 +1,4 @@
-import { getAllCategories, getCategoryById, getProjectsByCategoryId, getCategoriesByProjectId, updateCategoryAssignments, createCategory } from '../models/categories.js';
+import { getAllCategories, getCategoryById, getProjectsByCategoryId, getCategoriesByProjectId, updateCategoryAssignments, createCategory, updateCategory } from '../models/categories.js';
 import { getProjectDetails } from '../models/projects.js';
 
 // Define any controller functions
@@ -61,5 +61,37 @@ const processAssignCategoriesForm = async (req, res) => {
     res.redirect(`/project/${projectId}`);
 };
 
+const showEditCategoryForm = async (req, res, next) => {
+    const categoryId = req.params.id;
+    const category = await getCategoryById(categoryId);
+
+    if (!category) {
+        const error = new Error('Category not found');
+        error.status = 404;
+        return next(error);
+    }
+
+    res.render('edit-category', { title: 'Edit Category', category });
+};
+
+const processEditCategoryForm = async (req, res, next) => {
+    const categoryId = req.params.id;
+    const { name, description } = req.body;
+
+    const category = await getCategoryById(categoryId);
+
+    if (!category) {
+        const error = new Error('Category not found');
+        error.status = 404;
+        return next(error);
+    }
+
+    await updateCategory(categoryId, name, description);
+
+    req.flash('success', 'Category updated successfully!');
+
+    res.redirect(`/category/${categoryId}`);
+};
+
 // Export any controller functions
-export { showCategoriesPage, showCategoryDetailsPage, showNewCategoryForm, processNewCategoryForm, showAssignCategoriesForm, processAssignCategoriesForm };
+export { showCategoriesPage, showCategoryDetailsPage, showNewCategoryForm, processNewCategoryForm, showAssignCategoriesForm, processAssignCategoriesForm, showEditCategoryForm, processEditCategoryForm };

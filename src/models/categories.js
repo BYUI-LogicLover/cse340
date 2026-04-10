@@ -88,4 +88,14 @@ const createCategory = async (name, description) => {
     return result.rows[0];
 };
 
-export { getAllCategories, getCategoryById, getCategoriesByProjectId, getProjectsByCategoryId, assignCategoryToProject, updateCategoryAssignments, createCategory }
+const updateCategory = async (categoryId, name, description) => {
+    const query = `
+        UPDATE public.category
+        SET name = $1, description = $2
+        WHERE category_id = $3;
+    `;
+
+    await db.query(query, [name, description, categoryId]);
+};
+
+export { getAllCategories, getCategoryById, getCategoriesByProjectId, getProjectsByCategoryId, assignCategoryToProject, updateCategoryAssignments, createCategory, updateCategory }

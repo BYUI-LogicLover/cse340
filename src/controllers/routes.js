@@ -3,7 +3,7 @@ import express from 'express';
 import { showHomePage } from './index.js';
 import { showOrganizationsPage, showOrganizationDetailsPage, showNewOrganizationForm, processNewOrganizationForm, organizationValidation, showEditOrganizationForm, processEditOrganizationForm } from './organizations.js';
 import { showProjectsPage, showProjectDetailsPage, showNewProjectForm, processNewProjectForm, projectValidation, showEditProjectForm, processEditProjectForm, processVolunteer, processRemoveVolunteer } from './projects.js';
-import { showCategoriesPage, showCategoryDetailsPage, showNewCategoryForm, processNewCategoryForm, showAssignCategoriesForm, processAssignCategoriesForm } from './categories.js';
+import { showCategoriesPage, showCategoryDetailsPage, showNewCategoryForm, processNewCategoryForm, showAssignCategoriesForm, processAssignCategoriesForm, showEditCategoryForm, processEditCategoryForm } from './categories.js';
 import { testErrorPage } from './errors.js';
 import { showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm, processLogout, requireLogin, requireRole, showDashboard, showUsers, processRemoveDashboardVolunteer } from './users.js';
 
@@ -22,6 +22,12 @@ router.get('/new-category', requireRole('admin'), showNewCategoryForm);
 
 // Route to handle new category form submission
 router.post('/new-category', requireRole('admin'), processNewCategoryForm);
+
+// Route for edit category page
+router.get('/edit-category/:id', requireRole('admin'), showEditCategoryForm);
+
+// Route to handle edit category form submission
+router.post('/edit-category/:id', requireRole('admin'), processEditCategoryForm);
 
 // Route for new organization page
 router.get('/new-organization', requireRole('admin'), showNewOrganizationForm);
