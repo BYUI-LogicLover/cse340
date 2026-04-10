@@ -2,6 +2,7 @@
 -- Drop tables in dependency order (children first)
 -----------------------------------------------
 
+DROP TABLE IF EXISTS public.volunteer CASCADE;
 DROP TABLE IF EXISTS public.project_category CASCADE;
 DROP TABLE IF EXISTS public.project CASCADE;
 DROP TABLE IF EXISTS public.organization CASCADE;
@@ -92,6 +93,17 @@ CREATE TABLE public.project_category
 );
 
 -----------------------------------------------
+-- Volunteer
+-----------------------------------------------
+
+CREATE TABLE public.volunteer
+(
+    user_id    integer NOT NULL,
+    project_id integer NOT NULL,
+    PRIMARY KEY (user_id, project_id)
+);
+
+-----------------------------------------------
 -- Roles (for user authentication/authorization)
 -----------------------------------------------
 CREATE SEQUENCE role_id_seq
@@ -154,6 +166,18 @@ ALTER TABLE public.users
         REFERENCES public.roles (role_id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION;
+
+ALTER TABLE public.volunteer
+    ADD FOREIGN KEY (user_id)
+        REFERENCES public.users (user_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE;
+
+ALTER TABLE public.volunteer
+    ADD FOREIGN KEY (project_id)
+        REFERENCES public.project (project_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE CASCADE;
 
 -----------------------------------------------
 -- Data

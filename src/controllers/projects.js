@@ -1,6 +1,7 @@
 import { getUpcomingProjects, getProjectDetails, createProject, updateProject } from '../models/projects.js';
 import { getAllOrganizations } from '../models/organizations.js';
 import { getAllCategories, getCategoriesByProjectId, assignCategoryToProject } from '../models/categories.js';
+import { isVolunteer, addVolunteer, removeVolunteer } from '../models/volunteers.js';
 import { body, validationResult } from 'express-validator';
 
 const NUMBER_OF_UPCOMING_PROJECTS = 5;
@@ -57,7 +58,12 @@ const showProjectDetailsPage = async (req, res, next) => {
 
   const categories = await getCategoriesByProjectId(projectId);
 
-  res.render('project', { title: project.title, project, categories });
+  let volunteering = false;
+  if (req.session.user) {
+    volunteering = await isVolunteer(req.session.user.user_id, projectId);
+  }
+
+  res.render('project', { title: project.title, project, categories, volunteering });
 };
 
 const showNewProjectForm = async (req, res) => {
@@ -123,5 +129,23 @@ const processEditProjectForm = async (req, res) => {
     res.redirect(`/project/${projectId}`);
 };
 
+const processVolunteer = async (req, res) => {
+  const projectId = req.params.id;
+  const userId = req.session.user.user_id;
+
+  await addVolunteer(userId, projectId);
+  req.flash('success', 'You have volunteered for this project!');
+  res.redirect(`/project/${projectId}`);
+};
+
+const processRemoveVolunteer = async (req, res) => {
+  const projectId = req.params.id;
+  const userId = req.session.user.user_id;
+
+  await removeVolunteer(userId, projectId);
+  req.flash('success', 'You have been removed as a volunteer.');
+  res.redirect(`/project/${projectId}`);
+};
+
 // Export any controller functions
-export { showProjectsPage, showProjectDetailsPage, showNewProjectForm, processNewProjectForm, projectValidation, showEditProjectForm, processEditProjectForm };
+export { showProjectsPage, showProjectDetailsPage, showNewProjectForm, processNewProjectForm, projectValidation, showEditProjectForm, processEditProjectForm, processVolunteer, processRemoveVolunteer };

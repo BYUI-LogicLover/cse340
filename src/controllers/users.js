@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import { createUser, authenticateUser, getAllUsers } from '../models/users.js';
+import { getVolunteerProjectsByUserId, removeVolunteer } from '../models/volunteers.js';
 
 const showUserRegistrationForm = async (req, res) => {
   const title = 'Register';
@@ -71,9 +72,10 @@ const requireRole = (roleName) => {
 };
 
 const showDashboard = async (req, res) => {
-  const { name, email } = req.session.user;
+  const { user_id, name, email } = req.session.user;
   const title = 'Dashboard';
-  res.render('dashboard', { title, name, email });
+  const volunteerProjects = await getVolunteerProjectsByUserId(user_id);
+  res.render('dashboard', { title, name, email, volunteerProjects });
 };
 
 const showUsers = async (req, res) => {
@@ -87,6 +89,15 @@ const showUsers = async (req, res) => {
   }
 };
 
+const processRemoveDashboardVolunteer = async (req, res) => {
+  const projectId = req.params.id;
+  const userId = req.session.user.user_id;
+
+  await removeVolunteer(userId, projectId);
+  req.flash('success', 'You have been removed as a volunteer.');
+  res.redirect('/dashboard');
+};
+
 export {
   showUserRegistrationForm,
   processUserRegistrationForm,
@@ -96,5 +107,6 @@ export {
   requireLogin,
   requireRole,
   showDashboard,
-  showUsers
+  showUsers,
+  processRemoveDashboardVolunteer
 };
